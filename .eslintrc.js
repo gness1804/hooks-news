@@ -33,6 +33,7 @@ module.exports = {
     'max-len': 'off',
     'no-restricted-syntax': 'off',
     'no-underscore-dangle': 'off',
+    'no-unused-vars': 'warn',
     // React-specific rules: delete if not using React
     'react/prefer-stateless-function': 'off',
     'react/jsx-filename-extension': 'off',
