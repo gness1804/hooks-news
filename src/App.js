@@ -17,10 +17,18 @@ const App = () => {
         );
         /* eslint-enable no-console */
       });
-  });
+  }, []);
   return (
     <>
-      <p>I am the App component.</p>
+      <ul>
+        {articles.map(article => (
+          <li key={article.objectID}>
+            <a href={article.url} target="_blank" rel="noopener noreferrer">
+              {article.title}
+            </a>
+          </li>
+        ))}
+      </ul>
     </>
   );
 };
