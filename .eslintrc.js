@@ -22,7 +22,7 @@ module.exports = {
   // },
   // add your custom rules here
   'rules': {
-    'no-console': 'off',
+    'no-console': 'error',
     'func-names': 'off',
     'object-shorthand': 'off',
     'no-alert': 'off',
@@ -42,6 +42,8 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 'off',
     'react/jsx-no-bind': 'off',
     'class-methods-use-this': 'off',
+    'arrow-parens': 'off',
+    'implicit-arrow-linebreak': 'off',
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }
