@@ -4,19 +4,22 @@ import axios from 'axios';
 const App = () => {
   const url = 'http://hn.algolia.com/api/v1/search?query=reacthooks';
   const [articles, setArticles] = useState([]);
+
+  const getArticles = async () => {
+    const response = await axios.get(url);
+    setArticles(response.data.hits);
+  };
+
   useEffect(() => {
-    axios
-      .get(url)
-      .then(response => {
-        setArticles(response.data.hits);
-      })
-      .catch(err => {
-        /* eslint-disable no-console */
-        console.error(
-          `Error in fetching data: ${err.message || JSON.stringify(err)}`,
-        );
-        /* eslint-enable no-console */
-      });
+    try {
+      getArticles();
+    } catch (err) {
+      /* eslint-disable no-console */
+      console.error(
+        `Error in fetching data: ${err.message || JSON.stringify(err)}`,
+      );
+      /* eslint-enable no-console */
+    }
   }, []);
   return (
     <>
