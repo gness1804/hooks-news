@@ -44,6 +44,7 @@ module.exports = {
     'class-methods-use-this': 'off',
     'arrow-parens': 'off',
     'implicit-arrow-linebreak': 'off',
+    'operator-linebreak': 'off',
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }

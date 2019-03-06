@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const App = () => {
-  const url = 'http://hn.algolia.com/api/v1/search?query=reacthooks';
   const [articles, setArticles] = useState([]);
+  const [query, setQuery] = useState('');
+  const url = `http://hn.algolia.com/api/v1/search?query=${query ||
+    'reacthooks'}`;
 
   const getArticles = async () => {
     const response = await axios.get(url);
@@ -20,9 +22,19 @@ const App = () => {
       );
       /* eslint-enable no-console */
     }
-  }, []);
+  }, [query]);
+
+  const handleUpdateSearchText = event => {
+    setQuery(event.target.value);
+  };
+
   return (
     <>
+      <input
+        type="text"
+        placeholder="Query"
+        onChange={handleUpdateSearchText}
+      />
       <ul>
         {articles.map(article => (
           <li key={article.objectID}>
