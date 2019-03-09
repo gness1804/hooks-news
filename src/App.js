@@ -5,6 +5,8 @@ const App = () => {
   const [articles, setArticles] = useState([]);
   const [query, setQuery] = useState('');
   const [shownQuery, setShownQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
   const searchInputRef = useRef(null);
 
   const url = `http://hn.algolia.com/api/v1/search?query=${query}`;
@@ -15,7 +17,9 @@ const App = () => {
       alert('You must enter a query.');
       return;
     }
+    setIsLoading(true);
     const response = await axios.get(url);
+    setIsLoading(false);
     setArticles(response.data.hits);
   };
 
@@ -32,6 +36,17 @@ const App = () => {
     setShownQuery(query);
   }, [articles]);
 
+  const resultsMssgElem =
+    articles.length && shownQuery ? (
+      <p>
+        Showing results for: <strong>{shownQuery}</strong>
+      </p>
+    ) : (
+      <p>No results. Enter a search term now!</p>
+    );
+
+  const loadingElem = <p>Results loading...</p>;
+
   return (
     <>
       <form onSubmit={getArticles}>
@@ -46,11 +61,7 @@ const App = () => {
         <button type="button" onClick={clearQuery}>
           Clear
         </button>
-        {articles.length && shownQuery ? (
-          <p>Showing results for: {shownQuery}</p>
-        ) : (
-          <p>No results. Enter a search term now!</p>
-        )}
+        {isLoading ? loadingElem : resultsMssgElem}
         <ul>
           {articles.map(article => (
             <li key={article.objectID}>
