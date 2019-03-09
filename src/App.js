@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 
 const App = () => {
   const [articles, setArticles] = useState([]);
   const [query, setQuery] = useState('');
+  const [shownQuery, setShownQuery] = useState('');
   const searchInputRef = useRef(null);
 
   const url = `http://hn.algolia.com/api/v1/search?query=${query}`;
@@ -27,6 +28,10 @@ const App = () => {
     searchInputRef.current.focus();
   };
 
+  useEffect(() => {
+    setShownQuery(query);
+  }, [articles]);
+
   return (
     <>
       <form onSubmit={getArticles}>
@@ -41,8 +46,8 @@ const App = () => {
         <button type="button" onClick={clearQuery}>
           Clear
         </button>
-        {articles.length && query ? (
-          <p>Showing results for: {query}</p>
+        {articles.length && shownQuery ? (
+          <p>Showing results for: {shownQuery}</p>
         ) : (
           <p>No results. Enter a search term now!</p>
         )}
