@@ -6,6 +6,7 @@ const App = () => {
   const [query, setQuery] = useState('');
   const [shownQuery, setShownQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const searchInputRef = useRef(null);
 
@@ -18,9 +19,13 @@ const App = () => {
       return;
     }
     setIsLoading(true);
-    const response = await axios.get(url);
+    try {
+      const response = await axios.get(url);
+      setArticles(response.data.hits);
+    } catch (err) {
+      setError(err.message || JSON.stringify(err));
+    }
     setIsLoading(false);
-    setArticles(response.data.hits);
   };
 
   const handleUpdateSearchText = event => {
@@ -59,6 +64,12 @@ const App = () => {
     </ul>
   );
 
+  const errorElem = (
+    <p style={{ color: 'red' }}>
+      Oops! There was an error fetching your results: {error}
+    </p>
+  );
+
   return (
     <>
       <form onSubmit={getArticles}>
@@ -74,6 +85,7 @@ const App = () => {
           Clear
         </button>
         {isLoading ? loadingElem : resultsMssgElem}
+        {error && errorElem}
         {articlesElem}
       </form>
     </>
