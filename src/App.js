@@ -47,6 +47,18 @@ const App = () => {
 
   const loadingElem = <p>Results loading...</p>;
 
+  const articlesElem = (
+    <ul>
+      {articles.map(article => (
+        <li key={article.objectID}>
+          <a href={article.url} target="_blank" rel="noopener noreferrer">
+            {article.title}
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
     <>
       <form onSubmit={getArticles}>
@@ -62,15 +74,7 @@ const App = () => {
           Clear
         </button>
         {isLoading ? loadingElem : resultsMssgElem}
-        <ul>
-          {articles.map(article => (
-            <li key={article.objectID}>
-              <a href={article.url} target="_blank" rel="noopener noreferrer">
-                {article.title}
-              </a>
-            </li>
-          ))}
-        </ul>
+        {articlesElem}
       </form>
     </>
   );
