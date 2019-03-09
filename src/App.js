@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import debounce from 'debounce';
 
 const App = () => {
   const [articles, setArticles] = useState([]);
@@ -25,7 +26,7 @@ const App = () => {
   }, [query]);
 
   const handleUpdateSearchText = event => {
-    setQuery(event.target.value);
+    debounce(setQuery(event.target.value), 10000);
   };
 
   return (
