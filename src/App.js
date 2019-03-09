@@ -43,28 +43,30 @@ const App = () => {
 
   return (
     <>
-      <input
-        type="text"
-        placeholder="Query"
-        onChange={handleUpdateSearchText}
-      />
-      <button type="submit" onClick={handleSubmit}>
-        Search
-      </button>
-      {finalQuery ? (
-        <p>Showing results for: {finalQuery}</p>
-      ) : (
-        <p>No results. Enter a search term now!</p>
-      )}
-      <ul>
-        {articles.map(article => (
-          <li key={article.objectID}>
-            <a href={article.url} target="_blank" rel="noopener noreferrer">
-              {article.title}
-            </a>
-          </li>
-        ))}
-      </ul>
+      <form>
+        <input
+          type="text"
+          placeholder="Query"
+          onChange={handleUpdateSearchText}
+        />
+        <button type="submit" onClick={handleSubmit}>
+          Search
+        </button>
+        {finalQuery ? (
+          <p>Showing results for: {finalQuery}</p>
+        ) : (
+          <p>No results. Enter a search term now!</p>
+        )}
+        <ul>
+          {articles.map(article => (
+            <li key={article.objectID}>
+              <a href={article.url} target="_blank" rel="noopener noreferrer">
+                {article.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </form>
     </>
   );
 };
