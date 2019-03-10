@@ -50,13 +50,21 @@ const App = () => {
       <p>No results. Enter a search term now!</p>
     );
 
-  const loadingElem = <p>Results loading...</p>;
+  const loadingElem = (
+    <p className="font-bold text-orange-dark">Results loading...</p>
+  );
 
   const articlesElem = (
-    <ul>
+    <ul className="list-reset leading-normal">
       {articles.map(article => (
         <li key={article.objectID}>
-          <a href={article.url} target="_blank" rel="noopener noreferrer">
+          <a
+            href={article.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-dark hover:text-indigo-darkest"
+            style={{ textDecoration: 'none' }}
+          >
             {article.title}
           </a>
         </li>
@@ -65,30 +73,43 @@ const App = () => {
   );
 
   const errorElem = (
-    <p style={{ color: 'red' }}>
+    <p className="text-red font-bold">
       Oops! There was an error fetching your results: {error}
     </p>
   );
 
   return (
-    <>
-      <form onSubmit={getArticles}>
+    <div className="container max-w-md mx-auto p-4 m-2 bg-purple-lightest shadow-lg rounded">
+      <img
+        src="https://icon.now.sh/react/c0c"
+        alt="React Logo"
+        className="float-right h-12"
+      />
+      <h1 className="text-grey-darkest font-thin">Hooks News</h1>
+      <form onSubmit={getArticles} className="mb-2">
         <input
           type="text"
           placeholder="Query"
           onChange={handleUpdateSearchText}
           value={query}
           ref={searchInputRef}
+          className="border p-1 rounded"
         />
-        <button type="submit">Search</button>
-        <button type="button" onClick={clearQuery}>
+        <button type="submit" className="bg-orange rounded m-1 p-1">
+          Search
+        </button>
+        <button
+          type="button"
+          onClick={clearQuery}
+          className="bg-teal text-white p-1 rounded"
+        >
           Clear
         </button>
         {isLoading ? loadingElem : resultsMssgElem}
         {error && errorElem}
         {articlesElem}
       </form>
-    </>
+    </div>
   );
 };
 
